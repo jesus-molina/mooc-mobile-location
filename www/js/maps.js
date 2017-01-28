@@ -26,9 +26,25 @@ var app = {
       maxZoom: 18
     }).addTo(miMapa);
 
-    app.pintaMarcador([position.coords.latitude, position.coords.longitude], '¡Estoy aquí!', miMapa);
+    // app.pintaMarcador([position.coords.latitude, position.coords.longitude], '¡Estoy aquí!', miMapa);
+    var LeafIcon = L.Icon.extend({
+    options: {
+      shadowUrl: 'css/images/leaf-shadow.png',
+      iconSize:     [38, 95],
+      shadowSize:   [50, 64],
+      iconAnchor:   [22, 94],
+      shadowAnchor: [4, 62],
+      popupAnchor:  [-3, -76]
+      }
+    });
+
+    var greenIcon = new LeafIcon({iconUrl: 'css/images/leaf-green.png'});
+
+    L.marker([position.coords.latitude, position.coords.longitude], {icon: greenIcon}).bindPopup("I am a green leaf.").addTo(miMapa);
+    
 
     app.pintaCirculo([position.coords.latitude, position.coords.longitude], 1000, miMapa);
+
 
     miMapa.on('click', function(evento){
       var texto = 'Marcador en l(' + evento.latlng.lat.toFixed(2) + ') y L(' + evento.latlng.lng.toFixed(2) + ')';
